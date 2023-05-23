@@ -19,8 +19,17 @@ app.get("/shops", async (req, res) => {
 });
 
 //get all products from the shop
-app.get("/shops/id/{id}", (res, rej) => {
-  res.json({ shops: ["shop1", "shop2", "shop3", "shop4", "shop5"] });
+app.get("/products/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const products = await pool.query(
+      "SELECT * FROM public.products WHERE shop_id = $1",
+      [id]
+    );
+    res.json(products.rows);
+  } catch (error) {
+    console.error(error);
+  }
 });
 
 //set order
