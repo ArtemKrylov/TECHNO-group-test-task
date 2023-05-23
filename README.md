@@ -1,6 +1,15 @@
-# Getting Started with Create React App
+The Food Delivery app - the web application where users can order food delivery.
+Made as a test task for ET-school ELIFTECH
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Technology stack: React, TypeScript, react-router-dom, react-styled-components, lazy-loading
+
+
+Features: 
+1. Responsive layout
+2. TypeScript usage for better maintenance
+3. NoMatchPage - if user enters wrong address - user is navigated to index route (which is ShopsPage)
+4. Creative animated Loader while a page/components are loading
+
 
 ## Available Scripts
 
@@ -39,8 +48,3 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
