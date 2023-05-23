@@ -20,7 +20,7 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<SharedLayout />} errorElement={<NoMatchPage />}>
       <Route index element={<ShopsPage />} />
-      <Route path="/tweets" element={<ShoppingCartPage />} />
+      <Route path="/cart" element={<ShoppingCartPage />} />
     </Route>
   ),
   { basename }
