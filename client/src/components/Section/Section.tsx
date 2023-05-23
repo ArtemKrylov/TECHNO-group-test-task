@@ -1,16 +1,16 @@
-import React, { FC } from 'react';
+import React, { FC, ReactElement } from 'react';
 import { Container } from 'components/App/App.styled';
 import SectionStyled from './Section.styled';
-import { Node } from 'typescript';
 
 interface SectionProps {
   title: string;
-  children: Node;
+  className?: string;
+  children: string | ReactElement | ReactElement[];
 }
 
-const Section: FC<SectionProps> = ({ title, children }) => {
+const Section: FC<SectionProps> = ({ title, className, children }) => {
   return (
-    <SectionStyled className={`section`}>
+    <SectionStyled className={`section ${className}`}>
       <Container className="container">
         <>
           {title && <h3 className={`section__title`}>{title}</h3>}
