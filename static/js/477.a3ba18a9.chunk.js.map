@@ -1,0 +1,1 @@
+{"version":3,"file":"static/js/477.a3ba18a9.chunk.js","mappings":"iLAMA,EAJ4B,WAC1B,OAAOA,EAAAA,EAAAA,KAAA,OAAAC,SAAK,aACd,C","sources":["pages/ShopsPage/ShopsPage.tsx"],"sourcesContent":["import React from 'react';\n\nconst ShopsPage: React.FC = () => {\n  return <div>ShopsPage</div>;\n};\n\nexport default ShopsPage;\n"],"names":["_jsx","children"],"sourceRoot":""}
