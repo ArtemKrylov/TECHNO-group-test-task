@@ -9,8 +9,13 @@ app.use(express.json());
 
 //ROUTES
 //get all shops
-app.get("/shops", (res, rej) => {
-  res.json({ shops: ["shop1", "shop2", "shop3", "shop4", "shop5"] });
+app.get("/shops", async (req, res) => {
+  try {
+    const shops = await pool.query("SELECT * FROM public.shops");
+    res.json(shops.rows);
+  } catch (error) {
+    console.error(error);
+  }
 });
 
 //get all products from the shop
