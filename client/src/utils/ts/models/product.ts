@@ -5,5 +5,5 @@ export interface IProduct {
   price: number;
   number: number;
   image: string;
-  orderedNumber?: 0;
+  orderedNumber?: number;
 }

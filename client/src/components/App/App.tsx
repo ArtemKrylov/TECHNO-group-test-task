@@ -9,6 +9,7 @@ import {
 import NoMatchPage from 'pages/NoMatchPage/NoMatchPage';
 import SharedLayout from 'components/SharedLayout/SharedLayout';
 import { Toaster } from 'react-hot-toast';
+import { GlobalContextProvider } from 'utils/globalContext/globalContext';
 
 //setting lazy loading
 const ShopsPage = lazy(() => import('pages/ShopsPage'));
@@ -28,10 +29,22 @@ const router = createBrowserRouter(
 );
 
 const App: FC = () => {
+  // //shop index, which products are in cart
+  // const [orderShop, setOrderShop] = useState<number | null>(null);
+  // const productsInLocalStorage = useMemo(() => {
+  //   return JSON.parse(localStorage.getItem('cart') ?? '[]');
+  // }, []);
+
+  // const [productsInCart, setProductsInCart] = useState<IProduct[]>(
+  //   productsInLocalStorage
+  // );
+
   return (
     <div className="app">
       <Toaster />
-      <RouterProvider router={router} />
+      <GlobalContextProvider>
+        <RouterProvider router={router} />
+      </GlobalContextProvider>
       <GlobalStyle />
     </div>
   );

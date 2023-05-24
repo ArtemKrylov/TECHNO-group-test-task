@@ -1,10 +1,10 @@
-import toast from 'react-hot-toast';
+import React from 'react';
+import { Formik, Form, Field } from 'formik';
+import { object, string, number } from 'yup';
+
 import { Button } from 'components/App/App.styled';
 import ProductsList from 'components/ProductsList/ProductsList';
-import { Formik, Form, Field } from 'formik';
-import React, { useMemo, useState } from 'react';
-import { IProduct } from 'utils/ts/models/product';
-import { object, string, number } from 'yup';
+import { useGlobal } from 'utils/globalContext/globalContext';
 
 const orderFormSchema = object({
   name: string().required(),
@@ -14,33 +14,10 @@ const orderFormSchema = object({
 });
 
 const OrderForm: React.FC = () => {
-  const productsInLocalStorage = useMemo(() => {
-    return JSON.parse(localStorage.getItem('cart') ?? '[]');
-  }, []);
-
-  const [productsInCart, setProductsInCart] = useState<IProduct[]>(
-    productsInLocalStorage
-  );
+  const { productsInCart } = useGlobal();
 
   //TODO
   function handleOrderSubmit(event: any): void {}
-
-  function addToCart(product: IProduct, shopId: number): void {
-    if (productsInCart.find(el => el.id === product.id)) {
-      toast.error('The product is already in your cart!');
-    }
-    localStorage.setItem('cart', JSON.stringify([product, ...productsInCart]));
-    setProductsInCart((prev: IProduct[]) => [product, ...prev]);
-  }
-
-  function deleteFromCart(product: IProduct): void {
-    if (!productsInCart.find(el => el.id === product.id)) {
-      toast.error('The product isn`t in your cart!');
-    }
-    const filteredProducts = productsInCart.filter(el => el.id !== product.id);
-    localStorage.setItem('cart', JSON.stringify(filteredProducts));
-    setProductsInCart((prev: IProduct[]) => filteredProducts);
-  }
 
   return (
     <Formik
@@ -95,12 +72,7 @@ const OrderForm: React.FC = () => {
         </label>
 
         {productsInCart ? (
-          <ProductsList
-            products={productsInCart}
-            productsInCart={productsInCart}
-            addToCart={addToCart}
-            deleteFromCart={deleteFromCart}
-          />
+          <ProductsList products={productsInCart} />
         ) : (
           <p>Your cart is empty yet!</p>
         )}
