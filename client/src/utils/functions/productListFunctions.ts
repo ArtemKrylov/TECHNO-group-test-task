@@ -1,4 +1,3 @@
-//!DELETE IF NOT USED
 import toast from 'react-hot-toast';
 import { IProduct } from 'utils/ts/models/product';
 

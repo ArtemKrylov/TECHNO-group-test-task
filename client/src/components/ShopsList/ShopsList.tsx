@@ -14,7 +14,6 @@ const ShopsList: React.FC<ShopsListParams> = ({
 }) => {
   function onShopsListItemClick(event: MouseEvent<HTMLElement>) {
     const id = Number(event.currentTarget.dataset.id);
-    console.log('id: ', id);
     changeViewedShopIndex(id);
   }
 

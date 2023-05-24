@@ -8,6 +8,7 @@ import { useGlobal } from 'utils/globalContext/globalContext';
 import FormErrorMessage from 'components/FormErrorMessage/FormErrorMessage';
 import { DeliveryApp_API } from 'API/DeliveryApp_API';
 import { OrderFormStyled } from './OrderForm.styled';
+import GoogleMapsBox from 'components/GoogleMapsBox/GoogleMapsBox';
 
 const orderFormSchema = object({
   name: string().required(),
@@ -115,6 +116,9 @@ const OrderForm: React.FC = () => {
                 className="orderForm__input"
               />
             </label>
+            <GoogleMapsBox
+              shop_id={productsInCart && productsInCart[0]?.shop_id}
+            />
           </div>
           <div className="orderForm__viewPart">
             {productsInCart ? (

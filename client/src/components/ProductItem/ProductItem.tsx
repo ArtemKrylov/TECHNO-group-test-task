@@ -1,5 +1,6 @@
 import { Button } from 'components/App/App.styled';
 import React, { MouseEvent, useState } from 'react';
+import toast from 'react-hot-toast';
 import {
   addToCart,
   deleteFromCart,
@@ -25,6 +26,10 @@ const ProductItem: React.FC<ProductItemProps> = ({ product }) => {
   function onAddToCartBtnClick(event: MouseEvent<HTMLElement>) {
     const shopId = Number(event.currentTarget.dataset.shopid);
     if (!product || !setOrderShop || !setProductsInCart) return;
+    if (orderShop && shop_id !== orderShop) {
+      toast.error('You can`t order from diffent shops simultaniously!');
+      return;
+    }
     setProductOrdered(prev => ++prev);
 
     addToCart(
@@ -45,13 +50,21 @@ const ProductItem: React.FC<ProductItemProps> = ({ product }) => {
 
   function onMinusBtnClick(event: MouseEvent<HTMLElement>) {
     if (!product || !setProductsInCart) return;
+    if (productOrdered === 0) return;
     setProductOrdered(prev => --prev);
     minusOneCart(product, productsInCart ?? [], setProductsInCart);
   }
 
   function onPlusBtnClick(event: MouseEvent<HTMLElement>) {
     if (!product || !setOrderShop || !setProductsInCart) return;
+    if (orderShop && shop_id !== orderShop) {
+      toast.error('You can`t order from diffent shops simultaniously!');
+      return;
+    }
     setProductOrdered(prev => ++prev);
+    if (productOrdered > number) return;
+    console.log('number: ', number);
+    console.log('productOrdered: ', productOrdered);
 
     plusOneCart(
       product,

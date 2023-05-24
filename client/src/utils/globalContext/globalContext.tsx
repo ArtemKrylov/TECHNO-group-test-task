@@ -27,12 +27,13 @@ interface GlobalProviderProps {
 export const GlobalContextProvider: React.FC<GlobalProviderProps> = ({
   children,
 }) => {
-  //shop index, which products are in cart
-  const [orderShop, setOrderShop] = useState<number | null>(null);
-
   const productsInLocalStorage = useMemo(() => {
     return JSON.parse(localStorage.getItem('cart') ?? '[]');
   }, []);
+  //shop index, which products are in cart
+  const [orderShop, setOrderShop] = useState<number | null>(
+    productsInLocalStorage[0]?.shop_id ?? null
+  );
 
   const [productsInCart, setProductsInCart] = useState<IProduct[]>(
     productsInLocalStorage
