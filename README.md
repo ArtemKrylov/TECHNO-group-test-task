@@ -8,7 +8,9 @@ image lazy-loading
 react-hot-toast, Formik + Yup, react-router-dom
 
 Back: Express
+
 DB: PostgreSQL
+
 
 Features: 
 
