@@ -29,16 +29,6 @@ const router = createBrowserRouter(
 );
 
 const App: FC = () => {
-  // //shop index, which products are in cart
-  // const [orderShop, setOrderShop] = useState<number | null>(null);
-  // const productsInLocalStorage = useMemo(() => {
-  //   return JSON.parse(localStorage.getItem('cart') ?? '[]');
-  // }, []);
-
-  // const [productsInCart, setProductsInCart] = useState<IProduct[]>(
-  //   productsInLocalStorage
-  // );
-
   return (
     <div className="app">
       <Toaster />
