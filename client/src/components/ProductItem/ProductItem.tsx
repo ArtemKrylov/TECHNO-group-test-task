@@ -63,8 +63,6 @@ const ProductItem: React.FC<ProductItemProps> = ({ product }) => {
     }
     setProductOrdered(prev => ++prev);
     if (productOrdered > number) return;
-    console.log('number: ', number);
-    console.log('productOrdered: ', productOrdered);
 
     plusOneCart(
       product,

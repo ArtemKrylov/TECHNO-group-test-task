@@ -9,6 +9,7 @@ interface GoogleMapsBoxProps {
   shop_id?: number;
 }
 
+//TODO in process
 const GoogleMapsBox: React.FC<GoogleMapsBoxProps> = ({
   customer_address,
   shop_id,
