@@ -4,8 +4,8 @@ const appController = {
   //get all shops
   getAll: async (req, res) => {
     try {
-      const shops = await postgre.query("SELECT * FROM public.shops");
-      res.json(shops.rows);
+      const { rows } = await postgre.query("SELECT * FROM public.shops");
+      res.json(rows);
     } catch (error) {
       console.error(error);
     }
@@ -41,7 +41,7 @@ const appController = {
         `INSERT INTO orders (name,
         email,
         phone,
-        customer_address,
+        customer_address,	
         shop_id, total_price,
         order_items) VALUES($1,$2,$3,$4,$5,$6,$7)`,
         [
