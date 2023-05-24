@@ -61,8 +61,8 @@ const ProductItem: React.FC<ProductItemProps> = ({ product }) => {
       toast.error('You can`t order from diffent shops simultaniously!');
       return;
     }
+    if (productOrdered === number) return;
     setProductOrdered(prev => ++prev);
-    if (productOrdered > number) return;
 
     plusOneCart(
       product,
