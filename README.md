@@ -11,6 +11,8 @@ Back: Express
 
 DB: PostgreSQL
 
+![image](https://github.com/ArtemKrylov/delivery_app_ET-school/assets/43321337/bb64e1dd-7f9e-42f6-bd7e-286b8de93051)
+
 
 Features: 
 
@@ -22,6 +24,13 @@ Features:
 
 
 ## Available Scripts
+
+Backend: 
+
+ ### 'npm start':  "node index.js",
+ ### 'npm run dev': "nodemon server"
+ 
+DB is hosted on Versel
 
 Frontend: 
 
@@ -52,9 +61,4 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 
 **Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-
-Backend: 
-
- ### 'npm start':  "node server",
- ### 'npm run dev': "nodemon server"
 
