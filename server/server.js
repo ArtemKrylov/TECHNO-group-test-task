@@ -63,6 +63,6 @@ app.post("/orders/make-order", async (req, res) => {
 // /ROUTES
 
 //start listening
-app.listen(5000, () => {
+app.listen(process.env.PORT, () => {
   console.log("server started on port 5000");
 });
