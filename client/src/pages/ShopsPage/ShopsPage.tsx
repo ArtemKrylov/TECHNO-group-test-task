@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { DeliveryApp_API } from 'API/DeliveryApp_API';
 import ProductsList from 'components/ProductsList/ProductsList';
 import Section from 'components/Section/Section';
-import ShopsList from 'components/ShopsList/ShopsList';
 import { IProduct } from 'utils/ts/models/product';
 import { IShop } from 'utils/ts/models/shop';
+import { ShopsPageStyled } from './ShopsPage.styled';
+import { Container } from 'components/App/App.styled';
+import ShopsList from 'components/ShopsList/ShopsList';
 
 const ShopsPage: React.FC = () => {
   const [shops, setShops] = useState<IShop[]>([]);
@@ -16,7 +18,7 @@ const ShopsPage: React.FC = () => {
   useEffect(() => {
     const fetchShops = async () => {
       const response: any = await DeliveryApp_API.getShops();
-      setShops(response.data);
+      setShops(response.data.sort((a: IShop, b: IShop) => a.id - b.id));
     };
     try {
       fetchShops();
@@ -26,12 +28,23 @@ const ShopsPage: React.FC = () => {
   }, []);
 
   useEffect(() => {
+    console.log('viewedShopIndex: ', viewedShopIndex);
     const fetchProducts = async () => {
       const response: any = await DeliveryApp_API.getProducts(
-        shops[viewedShopIndex].id
+        shops.find(el => el.id === viewedShopIndex)?.id ?? 0
+      );
+      const savedCartProducts: IProduct[] = JSON.parse(
+        localStorage.getItem('cart') ?? '[]'
       );
       setProducts(
         response.data.map((product: IProduct) => {
+          const foundProduct = savedCartProducts.find(
+            el => el.id === product.id
+          );
+          if (foundProduct) {
+            product.orderedNumber = foundProduct.orderedNumber;
+            return product;
+          }
           product.orderedNumber = 0;
           return product;
         })
@@ -51,18 +64,20 @@ const ShopsPage: React.FC = () => {
   }
 
   return (
-    <div className="shopsPage">
-      ShopsPage
-      <Section title="Shops" className="shopsPage__shops">
-        <ShopsList
-          shops={shops}
-          changeViewedShopIndex={changeViewedShopIndex}
-        />
-      </Section>
-      <Section title="Products" className="shopsPage__products">
-        <ProductsList products={products} />
-      </Section>
-    </div>
+    <ShopsPageStyled className="shopsPage">
+      <Container className="container">
+        <Section title="Shops" className="shopsPage__shops">
+          <ShopsList
+            shops={shops}
+            changeViewedShopIndex={changeViewedShopIndex}
+            viewedShopIndex={viewedShopIndex}
+          />
+        </Section>
+        <Section title="Products" className="shopsPage__products">
+          <ProductsList products={products} />
+        </Section>
+      </Container>
+    </ShopsPageStyled>
   );
 };
 

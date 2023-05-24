@@ -8,7 +8,7 @@ export const theme = {
   },
   media: {
     tablet: `@media screen and (min-width: 768px)`,
-    desktop: `@media screen and (min-width: 1024px)`,
+    desktop: `@media screen and (min-width: 1200px)`,
   },
   shadows: {
     fontBlack: `.1px .1px #161616`,
@@ -33,7 +33,7 @@ export const theme = {
   textInherit: `font-size: inherit;
   line-height: inherit;
   letter-spacing: inherit;`,
-  text: (fs:number, lh:number, ls:number) => `font-size: ${fs}px;
+  text: (fs: number, lh: number, ls: number) => `font-size: ${fs}px;
   line-height: calc(${lh}px / ${fs}px);
   letter-spacing: ${ls}px;`,
 } as const;

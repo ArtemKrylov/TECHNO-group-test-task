@@ -1,19 +1,20 @@
 import React from 'react';
 
-import ProductItem from 'components/ProductItem/ProductItem';
 import { IProduct } from 'utils/ts/models/product';
+import { ProductsListStyled } from './ProductsList.styled';
+import ProductItem from 'components/ProductItem/ProductItem';
 
-interface ProductsListParams {
+export interface ProductsListParams {
   products: IProduct[];
 }
 
 const ProductsList: React.FC<ProductsListParams> = ({ products }) => {
   return (
-    <ul className="productsList">
+    <ProductsListStyled className="productsList">
       {products.map(product => (
         <ProductItem key={product.id} product={product} />
       ))}
-    </ul>
+    </ProductsListStyled>
   );
 };
 

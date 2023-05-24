@@ -1,13 +1,16 @@
 import styled from 'styled-components';
+import { Field } from 'formik';
 
-interface ContainerProps {}
+interface ContainerProps {
+  className?: string;
+}
 
 export const Container = styled.div<ContainerProps>`
   margin-left: auto;
   margin-right: auto;
   padding-right: 20px;
   padding-left: 20px;
-  width: 320px;
+  width: 300px;
 
   ${props => props.theme.media.tablet} {
     width: 768px;
@@ -16,7 +19,7 @@ export const Container = styled.div<ContainerProps>`
   }
 
   ${props => props.theme.media.desktop} {
-    width: 1024px;
+    width: 1200px;
   }
 `;
 
@@ -52,7 +55,7 @@ export const Button = styled.button`
   }
 `;
 
-export const Input = styled.input`
+export const Input = styled(Field)`
   margin-bottom: 15px;
   padding: 7px;
 

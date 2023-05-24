@@ -2,14 +2,21 @@ import { createGlobalStyle } from 'styled-components';
 import 'modern-normalize/modern-normalize.css';
 
 export const GlobalStyle = createGlobalStyle`
+	html{
+		font-size: 16px;
+	}
   body {
 		margin: 0;
-		font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-			'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-			sans-serif;
+		font-family: 'Mali', cursive;
 		-webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;
+		max-width: 100vw;
+		overflow-X: hidden;
 	}
+
+		h1, h2, h3, h4, h5, h6, nav{
+			font-family: 'Kanit', sans-serif;
+		}
 
 	.visually-hidden {
 		position: absolute;
@@ -57,6 +64,11 @@ export const GlobalStyle = createGlobalStyle`
 
 	a {
 		text-decoration: none;
+		color: inherit;
+	}
+
+	img{
+		display: block;
 	}
 
 	button {
