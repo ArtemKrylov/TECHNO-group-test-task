@@ -2,7 +2,7 @@ import axios from 'axios';
 import { IOrder } from 'utils/ts/models/order';
 
 axios.defaults.baseURL =
-  'http://delivery-app-express-postgreql-api.vercel.app/api/v1'; //'http://localhost:5000/api/v1';
+  'https://delivery-app-express-postgreql-api.vercel.app/api/v1'; //'http://localhost:5000/api/v1';
 
 export const DeliveryApp_API = {
   getShops: () => {
