@@ -28,7 +28,6 @@ const ShopsPage: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    console.log('viewedShopIndex: ', viewedShopIndex);
     const fetchProducts = async () => {
       const response: any = await DeliveryApp_API.getProducts(
         shops.find(el => el.id === viewedShopIndex)?.id ?? 0

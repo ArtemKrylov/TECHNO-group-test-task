@@ -1,5 +1,5 @@
 import React from 'react';
-import { Formik, Form, Field } from 'formik';
+import { Formik, Form } from 'formik';
 import { object, string } from 'yup';
 
 import { Button, Input } from 'components/App/App.styled';
