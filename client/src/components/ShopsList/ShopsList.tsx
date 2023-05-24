@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { MouseEvent } from 'react';
 import { IShop } from 'utils/ts/models/shop';
 
 interface ShopsListParams {
@@ -9,7 +9,25 @@ const ShopsList: React.FC<ShopsListParams> = ({
   shops,
   changeViewedShopIndex,
 }) => {
-  return <ul className="shopsList">ShopsList</ul>;
+  function onShopsListItemClick(event: MouseEvent<HTMLElement>) {
+    const id = Number(event.currentTarget.dataset.id);
+    changeViewedShopIndex(id);
+  }
+
+  return (
+    <ul className="shopsList">
+      {shops.map(({ id, name }) => (
+        <li
+          key={id}
+          className="shopsList__item"
+          data-id={id}
+          onClick={onShopsListItemClick}
+        >
+          {name}
+        </li>
+      ))}
+    </ul>
+  );
 };
 
 export default ShopsList;

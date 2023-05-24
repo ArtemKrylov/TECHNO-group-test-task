@@ -1,5 +1,5 @@
 export interface IShop {
-  id: string;
+  id: number;
   name: string;
   shopAddress: string;
 }

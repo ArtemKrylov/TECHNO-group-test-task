@@ -2,7 +2,7 @@
   "name": "delivery_app",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://ArtemKrylov.github.io/delivery_app_ET-school/client",
+  "homepage": "https://ArtemKrylov.github.io/delivery_app_ET-school",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
@@ -13,15 +13,18 @@
     "@types/react-dom": "^18.0.11",
     "@types/styled-components": "^5.1.26",
     "axios": "^1.4.0",
+    "formik": "^2.2.9",
     "modern-normalize": "^1.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-hot-toast": "^2.4.1",
     "react-loader-spinner": "^5.3.4",
     "react-router-dom": "^6.11.2",
     "react-scripts": "^5.0.1",
     "styled-components": "^5.3.9",
     "typescript": "^4.9.5",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "yup": "^1.1.1"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -8,6 +8,7 @@ import {
 } from 'react-router-dom';
 import NoMatchPage from 'pages/NoMatchPage/NoMatchPage';
 import SharedLayout from 'components/SharedLayout/SharedLayout';
+import { Toaster } from 'react-hot-toast';
 
 //setting lazy loading
 const ShopsPage = lazy(() => import('pages/ShopsPage'));
@@ -29,6 +30,7 @@ const router = createBrowserRouter(
 const App: FC = () => {
   return (
     <div className="app">
+      <Toaster />
       <RouterProvider router={router} />
       <GlobalStyle />
     </div>
