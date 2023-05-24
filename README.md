@@ -1,6 +1,7 @@
 The Food Delivery app - the web application where users can order food delivery.
 Made as a test task for ET-school ELIFTECH
 
+Fully deployed on Vercel
 
 Technology stack: 
 Front: React, TypeScript, global context via useContext(), react hooks, react-routing, 	react-styled-components, components lazy-loading,
