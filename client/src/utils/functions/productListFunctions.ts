@@ -35,7 +35,6 @@ export function plusOneCart(
   setOrderShop: React.Dispatch<React.SetStateAction<number | null>>,
   setProductsInCart: React.Dispatch<React.SetStateAction<IProduct[]>>
 ): void {
-  console.log('function works');
   //if no such product in cart - add one
   if (!productsInCart.find(el => el.id === product.id)) {
     setOrderShop(shop_id);
@@ -58,7 +57,6 @@ export function plusOneCart(
   // setProductsInCart((prev: IProduct[]) => [product, ...prev]);
   // localStorage.setItem('cart', JSON.stringify(JSON.parse(localStorage.getItem('cart')??'[]').filter()));
   localStorage.setItem('cart', JSON.stringify(productsInCart));
-  console.log('productsInCart: ', productsInCart);
 }
 
 export function deleteFromCart(

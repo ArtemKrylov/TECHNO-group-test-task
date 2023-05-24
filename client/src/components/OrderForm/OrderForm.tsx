@@ -1,23 +1,66 @@
 import React from 'react';
 import { Formik, Form, Field } from 'formik';
-import { object, string, number } from 'yup';
+import { object, string } from 'yup';
 
 import { Button } from 'components/App/App.styled';
 import ProductsList from 'components/ProductsList/ProductsList';
 import { useGlobal } from 'utils/globalContext/globalContext';
+import FormErrorMessage from 'components/FormErrorMessage/FormErrorMessage';
+import { DeliveryApp_API } from 'API/DeliveryApp_API';
 
 const orderFormSchema = object({
   name: string().required(),
   email: string().email().required(),
-  phone: number().min(10).max(13).required(),
-  address: string().email().required(),
+  phone: string().required(),
+  address: string().required(),
 });
 
 const OrderForm: React.FC = () => {
   const { productsInCart } = useGlobal();
+  const totalPrice =
+    productsInCart?.reduce((acc, el) => acc + el.price, 0) ?? 0;
 
   //TODO
-  function handleOrderSubmit(event: any): void {}
+  async function handleOrderSubmit(
+    {
+      name,
+      email,
+      phone,
+      address,
+    }: {
+      name: string;
+      email: string;
+      phone: string;
+      address: string;
+    },
+    { resetForm }: any
+  ) {
+    console.log('submitting');
+    if (!productsInCart || productsInCart.length === 0) return;
+    const order_items: string = JSON.stringify(
+      productsInCart.map(el => ({
+        product_id: el.id,
+        product_number: el.orderedNumber ?? 0,
+      }))
+    );
+
+    try {
+      const response = DeliveryApp_API.postOrder({
+        name,
+        email,
+        phone,
+        customer_address: address,
+        shop_id: productsInCart[0].shop_id,
+        order_items,
+        total_price: totalPrice,
+      });
+      console.log('response: ', response);
+    } catch (error) {
+      console.error(error);
+    }
+
+    resetForm();
+  }
 
   return (
     <Formik
@@ -28,7 +71,7 @@ const OrderForm: React.FC = () => {
       <Form className="orderForm">
         <label className="orderForm__label" htmlFor="name">
           <p className="orderForm__labelText">Name</p>
-          {/* <FormErrorMessage name="password" /> */}
+          <FormErrorMessage name="name" />
           <Field
             name="name"
             type="text"
@@ -39,7 +82,7 @@ const OrderForm: React.FC = () => {
         </label>
         <label className="orderForm__label" htmlFor="email">
           <p className="orderForm__labelText">Email</p>
-          {/* <FormErrorMessage name="password" /> */}
+          <FormErrorMessage name="email" />
           <Field
             name="email"
             type="email"
@@ -50,7 +93,7 @@ const OrderForm: React.FC = () => {
         </label>
         <label className="orderForm__label" htmlFor="phone">
           <p className="orderForm__labelText">Phone</p>
-          {/* <FormErrorMessage name="password" /> */}
+          <FormErrorMessage name="phone" />
           <Field
             name="phone"
             type="phone"
@@ -61,7 +104,7 @@ const OrderForm: React.FC = () => {
         </label>
         <label className="orderForm__label" htmlFor="address">
           <p className="orderForm__labelText">Address</p>
-          {/* <FormErrorMessage name="password" /> */}
+          <FormErrorMessage name="address" />
           <Field
             name="address"
             type="text"
@@ -76,6 +119,8 @@ const OrderForm: React.FC = () => {
         ) : (
           <p>Your cart is empty yet!</p>
         )}
+
+        <p>{totalPrice} UAH</p>
 
         <Button type="submit" className="auth__submit-btn">
           Submit order
