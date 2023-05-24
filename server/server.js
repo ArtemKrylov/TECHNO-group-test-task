@@ -33,47 +33,36 @@ app.get("/products/:id", async (req, res) => {
 });
 
 //set order
-app.post("/orders", async (req, res) => {
+app.post("/orders/make-order", async (req, res) => {
   try {
     console.log(req.body);
+    const {
+      name,
+      email,
+      phone,
+      customer_address,
+      shop_id,
+      order_items,
+      total_price,
+    } = req.body;
+
+    const newOrder = await pool.query(
+      `INSERT INTO orders (name,
+        email,
+        phone,
+        customer_address,
+        shop_id, total_price,
+        order_items) VALUES($1,$2,$3,$4,$5,$6,$7)`,
+      [name, email, phone, customer_address, shop_id, total_price, order_items]
+    );
+    res.json(newOrder);
   } catch (error) {
     console.error(error);
   }
 });
+// /ROUTES
 
 //start listening
 app.listen(5000, () => {
   console.log("server started on port 5000");
 });
-// /ROUTES
-
-//get
-const shops = [
-  {
-    id: "string",
-    name: "shopName",
-    shopAddress: "shopAddress",
-  },
-];
-
-//get
-const products = [
-  {
-    productName: "productName",
-    price: 1,
-    number: 100,
-  },
-];
-
-//post
-const orders = [
-  {
-    name: "string",
-    email: "string",
-    phone: "string",
-    customerAddress: "string",
-    shop: { name: "shopName", shopAddress: "shopAddress" },
-    orderItems: [],
-    totalPrice: 100,
-  },
-];

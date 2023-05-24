@@ -14,3 +14,16 @@ CREATE TABLE products (
 	number integer NOT NULL,
 	image character varying(200)
 );
+
+CREATE TABLE orders (
+	id serial primary key,
+	name character varying(200) NOT NULL,
+	email character varying(200) NOT NULL,
+	phone character varying(20) NOT NULL,
+	customer_address character varying(200) NOT NULL,
+	shop_Id integer references shops(id),
+	total_price integer NOT NULL,
+	order_items character varying(2000)
+);
+
+
