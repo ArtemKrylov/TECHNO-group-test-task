@@ -2,7 +2,7 @@
   "name": "delivery_app",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://ArtemKrylov.github.io/delivery_app_ET-school/client",
+  "homepage": "https://delivery-app-et-school.vercel.app",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",

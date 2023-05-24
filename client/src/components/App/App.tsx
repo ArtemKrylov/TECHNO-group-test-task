@@ -15,7 +15,7 @@ import { GlobalContextProvider } from 'utils/globalContext/globalContext';
 const ShopsPage = lazy(() => import('pages/ShopsPage'));
 const ShoppingCartPage = lazy(() => import('pages/ShoppingCartPage'));
 
-const basename = '/delivery_app_ET-school';
+const basename = '/delivery-app-et-school.vercel.app';
 
 //setting router
 const router = createBrowserRouter(
