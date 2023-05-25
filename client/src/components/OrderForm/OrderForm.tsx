@@ -58,7 +58,7 @@ const OrderForm: React.FC = () => {
       });
       console.log('response: ', response);
       toast.success('Your order is submitted successfully!');
-      localStorage.setItem('cart', '');
+      localStorage.setItem('cart', '[]');
       if (!setOrderShop || !setProductsInCart) return;
       setOrderShop(null);
       setProductsInCart([]);
