@@ -1,6 +1,7 @@
 import React from 'react';
 import { Formik, Form } from 'formik';
 import { object, string } from 'yup';
+import toast from 'react-hot-toast';
 
 import { Button, Input } from 'components/App/App.styled';
 import ProductsList from 'components/ProductsList/ProductsList';
@@ -18,7 +19,7 @@ const orderFormSchema = object({
 });
 
 const OrderForm: React.FC = () => {
-  const { productsInCart } = useGlobal();
+  const { productsInCart, setOrderShop, setProductsInCart } = useGlobal();
   const totalPrice =
     productsInCart?.reduce((acc, el) => acc + el.price, 0) ?? 0;
 
@@ -56,6 +57,11 @@ const OrderForm: React.FC = () => {
         total_price: totalPrice,
       });
       console.log('response: ', response);
+      toast.success('Your order is submitted successfully!');
+      localStorage.setItem('cart', '');
+      if (!setOrderShop || !setProductsInCart) return;
+      setOrderShop(null);
+      setProductsInCart([]);
     } catch (error) {
       console.error(error);
     }
