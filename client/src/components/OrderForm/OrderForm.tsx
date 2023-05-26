@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Formik, Form } from 'formik';
 import { object, string } from 'yup';
 import toast from 'react-hot-toast';
@@ -20,6 +20,8 @@ const orderFormSchema = object({
 
 const OrderForm: React.FC = () => {
   const { productsInCart, setOrderShop, setProductsInCart } = useGlobal();
+  const [deliveryAddress, setDeliveryAddress] = useState<string | null>(null);
+
   const totalPrice =
     productsInCart?.reduce((acc, el) => acc + el.price, 0) ?? 0;
 
@@ -38,6 +40,7 @@ const OrderForm: React.FC = () => {
     { resetForm }: any
   ) {
     if (!productsInCart || productsInCart.length === 0) return;
+
     const order_items: string = JSON.stringify(
       productsInCart.map(el => ({
         product_id: el.id,
@@ -118,10 +121,14 @@ const OrderForm: React.FC = () => {
                 required
                 placeholder="Enter your address"
                 className="orderForm__input"
+                onBlur={(e: any) => {
+                  setDeliveryAddress(e.currentTarget.value);
+                }}
               />
             </label>
             <GoogleMapsBox
               shop_id={productsInCart && productsInCart[0]?.shop_id}
+              deliveryAddress={deliveryAddress}
             />
           </div>
           <div className="orderForm__viewPart">

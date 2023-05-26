@@ -9,16 +9,22 @@ import { ILocation } from 'utils/ts/models/location';
 interface GoogleMapsBoxProps {
   customer_address?: string;
   shop_id?: number;
+  deliveryAddress: string | null;
 }
 
 //TODO in process
 const GoogleMapsBox: React.FC<GoogleMapsBoxProps> = ({
   customer_address,
   shop_id,
+  deliveryAddress,
 }) => {
   const [currentShopData, setCurrentShopData] = useState<IShop | null>();
 
   const [userLocation, setUserLocation] = useState<ILocation>({
+    lat: 0,
+    lng: 0,
+  });
+  const [deliveryLocation, setDeliveryLocation] = useState<ILocation>({
     lat: 0,
     lng: 0,
   });
@@ -66,6 +72,25 @@ const GoogleMapsBox: React.FC<GoogleMapsBoxProps> = ({
     }
   }, [currentShopData]);
 
+  //getting and setting to state entered in input user delivery location
+  useEffect(() => {
+    async function getDeliveryLocation() {
+      if (!deliveryAddress) return;
+      const response = await axios.get(
+        `https://maps.googleapis.com/maps/api/geocode/json?address=${deliveryAddress}&key=${'AIzaSyAmusjGusKn8m2ZeFcohs4dQd1oGbSIFIA'}`
+      );
+      if (response.data.results.length === 0) return;
+      const { lat, lng }: { lat: number; lng: number } =
+        response.data.results[0].geometry.location;
+      setDeliveryLocation({ lat, lng });
+    }
+    try {
+      getDeliveryLocation();
+    } catch (error) {
+      console.error(error);
+    }
+  }, [currentShopData, deliveryAddress]);
+
   useEffect(() => {
     if (!shop_id) return;
     const fetchShops = async () => {
@@ -89,21 +114,41 @@ const GoogleMapsBox: React.FC<GoogleMapsBoxProps> = ({
   return isLoaded ? (
     <GoogleMapsBoxStyled className="googleMapContainer">
       <p className="googleMapContainer__title">Your location: </p>
-      {currentShopData && shopLocation.lat !== 0 && (
+      {currentShopData && deliveryLocation && shopLocation.lat !== 0 && (
         <GoogleMap
-          center={shopLocation}
+          center={shopLocation.lat ? shopLocation : userLocation}
           mapContainerStyle={{ width: '100%', height: '100%' }}
           zoom={14}
         >
           <Marker
             position={userLocation}
             draggable={true}
-            label={{ text: 'You' }}
+            label={{
+              text: 'You',
+              color: '#041ac4',
+              fontFamily: 'Mali',
+              fontWeight: 'bold',
+            }}
           />
           <Marker
             position={shopLocation}
             draggable={true}
-            label={{ text: currentShopData?.name ?? 'Your shop' }}
+            label={{
+              text: currentShopData?.name ?? 'Your shop',
+              color: '#041ac4',
+              fontFamily: 'Mali',
+              fontWeight: 'bold',
+            }}
+          />
+          <Marker
+            position={deliveryLocation}
+            draggable={true}
+            label={{
+              text: 'Delivery',
+              color: '#041ac4',
+              fontFamily: 'Mali',
+              fontWeight: 'bold',
+            }}
           />
         </GoogleMap>
       )}
