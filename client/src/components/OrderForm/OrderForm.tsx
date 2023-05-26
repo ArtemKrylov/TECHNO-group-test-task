@@ -37,7 +37,6 @@ const OrderForm: React.FC = () => {
     },
     { resetForm }: any
   ) {
-    console.log('submitting');
     if (!productsInCart || productsInCart.length === 0) return;
     const order_items: string = JSON.stringify(
       productsInCart.map(el => ({
@@ -47,7 +46,7 @@ const OrderForm: React.FC = () => {
     );
 
     try {
-      const response = DeliveryApp_API.postOrder({
+      await DeliveryApp_API.postOrder({
         name,
         email,
         phone,
@@ -56,7 +55,6 @@ const OrderForm: React.FC = () => {
         order_items,
         total_price: totalPrice,
       });
-      console.log('response: ', response);
       toast.success('Your order is submitted successfully!');
       localStorage.setItem('cart', '[]');
       if (!setOrderShop || !setProductsInCart) return;

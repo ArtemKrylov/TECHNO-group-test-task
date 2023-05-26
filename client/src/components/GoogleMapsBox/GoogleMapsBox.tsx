@@ -1,8 +1,10 @@
-import { useJsApiLoader, GoogleMap } from '@react-google-maps/api';
+import { useJsApiLoader, GoogleMap, Marker } from '@react-google-maps/api';
 import React, { useEffect, useState } from 'react';
 import { GoogleMapsBoxStyled } from './GoogleMapsBox.styled';
 import { IShop } from 'utils/ts/models/shop';
 import { DeliveryApp_API } from 'API/DeliveryApp_API';
+import axios from 'axios';
+import { ILocation } from 'utils/ts/models/location';
 
 interface GoogleMapsBoxProps {
   customer_address?: string;
@@ -14,13 +16,16 @@ const GoogleMapsBox: React.FC<GoogleMapsBoxProps> = ({
   customer_address,
   shop_id,
 }) => {
-  const [shopAddress, setShopAddress] = useState<string>('');
-  console.log('shopAddress: ', shopAddress);
-  const [userLocation, setUserLocation] = useState({
+  const [currentShopData, setCurrentShopData] = useState<IShop | null>();
+
+  const [userLocation, setUserLocation] = useState<ILocation>({
     lat: 0,
     lng: 0,
   });
-  console.log(shopAddress);
+  const [shopLocation, setShopLocation] = useState<ILocation>({
+    lat: 0,
+    lng: 0,
+  });
 
   useEffect(() => {
     async function getUserLocation() {
@@ -39,11 +44,38 @@ const GoogleMapsBox: React.FC<GoogleMapsBoxProps> = ({
     }
   }, []);
 
+  //getting and setting to state shops` location
+  useEffect(() => {
+    async function getShopLocation() {
+      if (!currentShopData) return;
+      if (!currentShopData.id) return;
+      const response = await axios.get(
+        `https://maps.googleapis.com/maps/api/geocode/json?address=${
+          currentShopData.shopAddress
+        }&key=${'AIzaSyAmusjGusKn8m2ZeFcohs4dQd1oGbSIFIA'}`
+      );
+      if (response.data.results.length === 0) return;
+      const { lat, lng }: { lat: number; lng: number } =
+        response.data.results[0].geometry.location;
+      setShopLocation({ lat, lng });
+    }
+    try {
+      getShopLocation();
+    } catch (error) {
+      console.error(error);
+    }
+  }, [currentShopData]);
+
   useEffect(() => {
     if (!shop_id) return;
     const fetchShops = async () => {
-      const response: any = await DeliveryApp_API.getShops();
-      setShopAddress(response.data.find((el: IShop) => el.id === shop_id));
+      const { data }: any = await DeliveryApp_API.getShops();
+      const currentShop = data.find((el: IShop) => el.id === shop_id);
+      setCurrentShopData({
+        id: currentShop.id,
+        name: currentShop.name,
+        shopAddress: currentShop.shopaddress,
+      });
     };
     try {
       fetchShops();
@@ -57,12 +89,23 @@ const GoogleMapsBox: React.FC<GoogleMapsBoxProps> = ({
   return isLoaded ? (
     <GoogleMapsBoxStyled className="googleMapContainer">
       <p className="googleMapContainer__title">Your location: </p>
-      {userLocation.lat !== 0 && (
+      {currentShopData && shopLocation.lat !== 0 && (
         <GoogleMap
-          center={userLocation}
+          center={shopLocation}
           mapContainerStyle={{ width: '100%', height: '100%' }}
-          zoom={15}
-        ></GoogleMap>
+          zoom={14}
+        >
+          <Marker
+            position={userLocation}
+            draggable={true}
+            label={{ text: 'You' }}
+          />
+          <Marker
+            position={shopLocation}
+            draggable={true}
+            label={{ text: currentShopData?.name ?? 'Your shop' }}
+          />
+        </GoogleMap>
       )}
     </GoogleMapsBoxStyled>
   ) : (

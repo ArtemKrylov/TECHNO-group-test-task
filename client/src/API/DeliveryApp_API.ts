@@ -12,8 +12,6 @@ export const DeliveryApp_API = {
     return axios.get(`/products/${shopId}`);
   },
   postOrder: (order: IOrder) => {
-    console.log('order: ', JSON.stringify(order));
-
     return axios.post('/orders/make-order', order);
   },
 };
