@@ -3,7 +3,9 @@ Made as a test task for ET-school ELIFTECH
 
 Fully deployed on Vercel
 
+
 Technology stack: 
+
 Front: React, TypeScript, global context via useContext(), react hooks, react-routing, 	react-styled-components, components lazy-loading,
 image lazy-loading
 react-hot-toast, Formik + Yup, react-router-dom
@@ -26,6 +28,7 @@ Features:
 4. Creative animated Loader while a page/components are loading
 5. Lazy loading of components and images for better perfomance
 6. Google Maps feature shows your chosen shop, delivery address and your current locations
+
 ![image](https://github.com/ArtemKrylov/delivery_app_ET-school/assets/43321337/51b57da0-8c85-4e2d-8272-c01d15667110)
 
 
