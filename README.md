@@ -15,6 +15,9 @@ DB: PostgreSQL
 ![image](https://github.com/ArtemKrylov/delivery_app_ET-school/assets/43321337/bb64e1dd-7f9e-42f6-bd7e-286b8de93051)
 
 
+
+
+
 Features: 
 
 1. TypeScript Frontend usage for better maintenance
@@ -22,6 +25,8 @@ Features:
 3. Responsive layout
 4. Creative animated Loader while a page/components are loading
 5. Lazy loading of components and images for better perfomance
+6. Google Maps feature shows your chosen shop, delivery address and your current locations
+![image](https://github.com/ArtemKrylov/delivery_app_ET-school/assets/43321337/51b57da0-8c85-4e2d-8272-c01d15667110)
 
 
 ## Available Scripts
