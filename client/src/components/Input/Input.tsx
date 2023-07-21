@@ -11,18 +11,23 @@ interface InputInterface {
 }
 
 const Input: React.FC<InputInterface> = ({ name, type }) => {
-  const [options, setOptions] = useState();
+  const [options, setOptions] = useState<string[] | null>(null);
 
   useEffect(() => {
-    let data;
-    switch (type) {
-      case INPUT_TYPE.CLIENT:
-        // data = TechnoApp_API.getClients();
-        // setOptions(data);
-        break;
-      case INPUT_TYPE.PROJECT:
-        break;
-    }
+    const fetchOptions: (type: InputType) => Promise<void> = async () => {
+      let data: any;
+      switch (type) {
+        case INPUT_TYPE.CLIENT:
+          data = await TechnoApp_API.getClients();
+          setOptions(data);
+          break;
+        case INPUT_TYPE.PROJECT:
+          data = await TechnoApp_API.getProjects();
+          setOptions(data);
+          break;
+      }
+    };
+    fetchOptions(type);
   }, [type]);
 
   return (
@@ -30,11 +35,13 @@ const Input: React.FC<InputInterface> = ({ name, type }) => {
       <div className="input__name">
         <span>{name}</span>
       </div>
-      <select className="input__select">
-        <option value="test" className="input__option">
-          test
-        </option>
-      </select>
+      {options && (
+        <select className="input__select">
+          <option value="test" className="input__option">
+            test
+          </option>
+        </select>
+      )}
     </InputStyled>
   );
 };
