@@ -12,8 +12,8 @@ import { Toaster } from 'react-hot-toast';
 import { GlobalContextProvider } from 'utils/globalContext/globalContext';
 
 //setting lazy loading
-const ShopsPage = lazy(() => import('pages/ShopsPage'));
-const ShoppingCartPage = lazy(() => import('pages/ShoppingCartPage'));
+// const ShopsPage = lazy(() => import('pages/ShopsPage'));
+// const ShoppingCartPage = lazy(() => import('pages/ShoppingCartPage'));
 
 const basename = '/';
 
@@ -21,8 +21,8 @@ const basename = '/';
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<SharedLayout />} errorElement={<NoMatchPage />}>
-      <Route index element={<ShopsPage />} />
-      <Route path="/cart" element={<ShoppingCartPage />} />
+      {/* <Route index element={<ShopsPage />} />
+      <Route path="/cart" element={<ShoppingCartPage />} /> */}
     </Route>
   ),
   { basename }
