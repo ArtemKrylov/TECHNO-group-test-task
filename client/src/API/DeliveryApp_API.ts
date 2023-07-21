@@ -7,7 +7,7 @@ export const TechnoApp_API = {
   getClients: () => {
     return axios.get('/clients');
   },
-  getProjects: () => {
-    return axios.get('/projects');
+  getProjects: (clientId: string) => {
+    return axios.get(`/${clientId}/projects`);
   },
 };

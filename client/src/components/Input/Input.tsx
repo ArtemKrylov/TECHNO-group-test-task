@@ -8,9 +8,10 @@ type InputType = 'client' | 'project';
 interface InputInterface {
   name: string;
   type: InputType;
+  clientId?: string;
 }
 
-const Input: React.FC<InputInterface> = ({ name, type }) => {
+const Input: React.FC<InputInterface> = ({ name, type, clientId }) => {
   const [options, setOptions] = useState<string[] | null>(null);
 
   useEffect(() => {
@@ -22,13 +23,14 @@ const Input: React.FC<InputInterface> = ({ name, type }) => {
           setOptions(data);
           break;
         case INPUT_TYPE.PROJECT:
-          data = await TechnoApp_API.getProjects();
+          if (!clientId) return;
+          data = await TechnoApp_API.getProjects(clientId);
           setOptions(data);
           break;
       }
     };
     fetchOptions(type);
-  }, [type]);
+  }, [type, clientId]);
 
   return (
     <InputStyled>
