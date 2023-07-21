@@ -24,6 +24,22 @@ const appController = {
       console.error(error);
     }
   },
+
+  //create project
+  createProject: async (req, res) => {
+    const { clientId } = req.params;
+    const { id, id_project } = req.body;
+    console.log("data: ", data);
+    try {
+      const newProject = await postgre.query(
+        `INSERT INTO project_num_t (id, id_dep_client, id_project) VALUES($1,$2,$3)`,
+        [id, clientId, id_project]
+      );
+      res.json(newProject);
+    } catch (error) {
+      console.error(error);
+    }
+  },
 };
 
 module.exports = appController;
