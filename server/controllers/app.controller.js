@@ -4,7 +4,7 @@ const appController = {
   //get all clients
   getClients: async (req, res) => {
     try {
-      const { rows } = await postgre.query("SELECT * FROM public.shops");
+      const { rows } = await postgre.query("SELECT * FROM public.client_t");
       res.json(rows);
     } catch (error) {
       console.error(error);
@@ -16,7 +16,7 @@ const appController = {
     const { clientId } = req.params;
     try {
       const products = await postgre.query(
-        "SELECT * FROM public.products WHERE shop_id = $1",
+        "SELECT * FROM public.project_num_t WHERE id_dep_client = $1",
         [clientId]
       );
       res.json(products.rows);
