@@ -2,7 +2,7 @@ import React, { FC, ReactElement } from 'react';
 import SectionStyled from './Section.styled';
 
 interface SectionProps {
-  title: string;
+  title?: string;
   className?: string;
   children: string | ReactElement | ReactElement[];
 }
