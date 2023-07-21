@@ -25,8 +25,8 @@ const StartPage: React.FC = () => {
     const currentDate = new Date();
     const dateChunk = `${currentDate.getDate()}${String(
       currentDate.getMonth() + 1
-    ).padStart(2, '0')}${String(currentDate.getFullYear()).slice(-2)}`;
-    const projectNumber = `1-${clientId}-${dateChunk}`;
+    ).padStart(2, '0')}${String(currentDate.getFullYear())}`;
+    const projectNumber = `${clientId}-${dateChunk}`;
     console.log('projectNumber: ', projectNumber);
     setNewProjectNumber(projectNumber);
   };

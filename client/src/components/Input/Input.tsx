@@ -63,11 +63,12 @@ const Input: React.FC<InputInterface> = ({
       </div>
       {options && (
         <select className="input__select" onChange={onClientInputChange}>
-          {options.map(option => {
+          {options.map((option: any) => {
             const clientId = option.id_dep_client;
+            const projectId = option.id_project;
             return (
               <option key={clientId} value={clientId} className="input__option">
-                {clientId}
+                {type === INPUT_TYPE.CLIENT ? clientId : projectId}
               </option>
             );
           })}
