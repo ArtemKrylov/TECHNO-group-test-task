@@ -1,8 +1,8 @@
 {
-  "name": "react-express-template",
+  "name": "techno-group-test-task-client",
   "version": "1.0.0",
   "private": true,
-  "homepage": "https://github.com/ArtemKrylov/react-express-template",
+  "homepage": "https://github.com/ArtemKrylov/TECHNO-group-test-task",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
