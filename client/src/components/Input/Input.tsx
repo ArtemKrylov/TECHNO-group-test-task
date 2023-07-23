@@ -28,12 +28,13 @@ const Input: React.FC<InputInterface> = ({
     onChange(event.target.value, type);
   };
 
-  return (
-    <InputStyled>
-      <div className="input__name">
-        <span>{name}</span>
-      </div>
-      {options && options.length > 0 ? (
+  if (options && options.length > 0) {
+    return (
+      <InputStyled>
+        <div className="input__name">
+          <span>{name}</span>
+        </div>
+
         <select className="input__select" onChange={onClientInputChange}>
           {type === INPUT_TYPE.CLIENT && (
             <option className="input__option">Select some option</option>
@@ -52,11 +53,11 @@ const Input: React.FC<InputInterface> = ({
             );
           })}
         </select>
-      ) : (
-        'No options'
-      )}
-    </InputStyled>
-  );
+      </InputStyled>
+    );
+  } else {
+    return null;
+  }
 };
 
 export default Input;

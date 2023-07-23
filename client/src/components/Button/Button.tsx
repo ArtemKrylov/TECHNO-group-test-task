@@ -12,16 +12,14 @@ interface ButtonInterface {
 
 const Button: React.FC<ButtonInterface> = ({ clientId, children, onClick }) => {
   return (
-    <ButtonStyled>
-      <button
-        type="button"
-        onClick={event => {
-          if (!onClick) return;
-          onClick(event, clientId);
-        }}
-      >
-        {children}
-      </button>
+    <ButtonStyled
+      type="button"
+      onClick={event => {
+        if (!onClick) return;
+        onClick(event, clientId);
+      }}
+    >
+      {children}
     </ButtonStyled>
   );
 };

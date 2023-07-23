@@ -1,9 +1,9 @@
 {
-  "short_name": "Delivery App",
-  "name": "Create React App Sample",
+  "short_name": "Technogroup test app",
+  "name": "Technogroup test fullstack app",
   "icons": [
     {
-      "src": "logo192.png",
+      "src": "logo.jpg",
       "type": "image/png",
       "sizes": "128x128"
     }

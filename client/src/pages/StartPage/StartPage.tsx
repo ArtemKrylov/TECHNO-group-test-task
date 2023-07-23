@@ -10,6 +10,7 @@ import { ClientInterface } from 'utils/models/client';
 import { ProjectInterface } from 'utils/models/project';
 import { InputType } from 'components/Input/Input';
 import { AxiosResponse } from 'axios';
+import { toast } from 'react-hot-toast';
 
 const StartPage: React.FC = () => {
   const [id_dep_client, setId_dep_client] = useState<string>();
@@ -51,7 +52,7 @@ const StartPage: React.FC = () => {
     clientId: string | undefined
   ) => void = async (event, id_dep_client) => {
     if (!id_dep_client) {
-      console.log('Undefined client!');
+      toast.error('Undefined client!');
       return;
     }
     const currentDate = new Date();
@@ -60,12 +61,19 @@ const StartPage: React.FC = () => {
     ).padStart(2, '0')}${String(currentDate.getFullYear())}`;
     const newId_project = `${id_dep_client}-${dateChunk}`;
     setId_project(newId_project);
-    const newProject: AxiosResponse<ProjectInterface> =
-      await TechnoApp_API.createProject(id_dep_client, newId_project);
-    setProjects(prev => {
-      if (!prev) return [newProject.data];
-      return [newProject.data, ...prev];
-    });
+
+    try {
+      const newProject: AxiosResponse<ProjectInterface> =
+        await TechnoApp_API.createProject(id_dep_client, newId_project);
+      setProjects(prev => {
+        if (!prev) return [newProject.data];
+        return [newProject.data, ...prev];
+      });
+      toast.success(`New project ${newId_project} created!`);
+    } catch (error: any) {
+      console.error(error);
+      toast.error(error.message);
+    }
   };
 
   return (

@@ -4,7 +4,7 @@ const StartPageStyled = styled(Container)`
   section {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 25px;
     align-items: start;
   }
 `;
