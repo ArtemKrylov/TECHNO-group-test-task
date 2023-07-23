@@ -1,19 +1,19 @@
 
+Technology stack:
 
-
-Technology stack: 
-
-Front: React, Typescript
+Front: React, Typescript, react-styled-components, axios, react-loader, react-hot-toast
 
 Back: Express
 
-DB: 
+DB: PostgreSQL
 
+Features:
 
-
-
-Features: 
-
+1. Fully deployed on Vercel (front, back, db)
+2. Used Typescript for better maintenance.
+3. Responsive design
+4. Optimization: lazy-loading
+5. Styled loader and notification toasts
 
 
 ## Available Scripts
