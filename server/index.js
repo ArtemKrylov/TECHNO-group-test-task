@@ -1,10 +1,8 @@
 const express = require("express");
 const app = express();
-const cors = require("cors");
 
 require("dotenv").config();
 
-app.use(cors());
 app.use((req, res, next) => {
   res.setHeader(
     "Access-Control-Allow-Origin",
