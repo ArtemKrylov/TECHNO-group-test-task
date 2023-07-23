@@ -10,4 +10,7 @@ export const TechnoApp_API = {
   getProjects: (clientId: string) => {
     return axios.get(`/${clientId}/projects`);
   },
+  createProject: (clientId: string, id_project: string) => {
+    return axios.post(`/${clientId}/projects`, { id_project });
+  },
 };

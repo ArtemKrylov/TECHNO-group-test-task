@@ -1,24 +1,56 @@
 import Header from 'components/Header';
 import Section from 'components/Section';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import StartPageStyled from './StartPage.styled';
 import Input from 'components/Input';
 import Button from 'components/Button/Button';
 import { INPUT_TYPE } from 'components/Input/constants';
+import { TechnoApp_API } from 'API/TechnoApp_API';
+import { ClientInterface } from 'utils/models/client';
+import { ProjectInterface } from 'utils/models/project';
+import { InputType } from 'components/Input/Input';
 
 const StartPage: React.FC = () => {
-  const [clientId, setClientId] = useState<string>();
-  const [newProjectNumber, setNewProjectNumber] = useState<string>();
+  const [id_dep_client, setId_dep_client] = useState<string>();
+  const [id_project, setId_project] = useState<string>();
+  const [clients, setClients] = useState<ClientInterface[]>();
+  const [projects, setProjects] = useState<ProjectInterface[]>();
 
-  const onClientInputChange: (value: string) => void = value => {
-    setClientId(value);
+  useEffect(() => {
+    const fetchClients: () => Promise<void> = async () => {
+      const response = await TechnoApp_API.getClients();
+      setClients(response.data);
+    };
+    fetchClients();
+  }, [id_project]);
+
+  useEffect(() => {
+    const fetchProjects: () => Promise<void> = async () => {
+      if (!id_dep_client) return;
+      const response = await TechnoApp_API.getProjects(id_dep_client);
+      setProjects(response.data);
+    };
+    fetchProjects();
+  }, [id_dep_client]);
+
+  const onClientInputChange: (value: string, type: InputType) => void = (
+    value,
+    type
+  ) => {
+    console.log(value, type);
+    if (type === INPUT_TYPE.CLIENT) {
+      setId_dep_client(value);
+    }
+    if (type === INPUT_TYPE.PROJECT) {
+      setId_project(value);
+    }
   };
 
   const onCreateProjectButtonClick: (
     event: React.MouseEvent<HTMLButtonElement>,
     clientId: string | undefined
-  ) => void = (event, clientId) => {
-    if (!clientId) {
+  ) => void = (event, id_dep_client) => {
+    if (!id_dep_client) {
       console.log('Undefined client!');
       return;
     }
@@ -26,9 +58,10 @@ const StartPage: React.FC = () => {
     const dateChunk = `${currentDate.getDate()}${String(
       currentDate.getMonth() + 1
     ).padStart(2, '0')}${String(currentDate.getFullYear())}`;
-    const projectNumber = `${clientId}-${dateChunk}`;
-    console.log('projectNumber: ', projectNumber);
-    setNewProjectNumber(projectNumber);
+    const newId_project = `${id_dep_client}-${dateChunk}`;
+    console.log('projectNumber: ', newId_project);
+    setId_project(newId_project);
+    TechnoApp_API.createProject(id_dep_client, newId_project);
   };
 
   return (
@@ -40,14 +73,18 @@ const StartPage: React.FC = () => {
             name="Клиент №:"
             type={INPUT_TYPE.CLIENT}
             onChange={onClientInputChange}
+            id_dep_client={id_dep_client ?? ''}
+            options={clients}
           />
-          <Button clientId={clientId} onClick={onCreateProjectButtonClick}>
+
+          <Button clientId={id_dep_client} onClick={onCreateProjectButtonClick}>
             Создать проект
           </Button>
           <Input
             name="Проект №:"
             type={INPUT_TYPE.PROJECT}
-            clientId={clientId}
+            id_dep_client={id_dep_client ?? ''}
+            options={projects}
           />
         </Section>
       </StartPageStyled>
