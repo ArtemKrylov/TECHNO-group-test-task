@@ -30,7 +30,7 @@ const appController = {
     const { clientId: id_dep_client } = req.params;
     try {
       const clients = await postgre.query(
-        "SELECT * FROM public.client_t WHERE id_dep_client = $1",
+        "SELECT * FROM public.project_num_t WHERE id_dep_client = $1",
         [id_dep_client]
       );
       res.json(clients.rows);
