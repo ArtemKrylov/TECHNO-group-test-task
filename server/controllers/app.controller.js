@@ -45,11 +45,11 @@ const appController = {
     const { id_project } = req.body;
     try {
       const newProject = await postgre.query(
-        `INSERT INTO project_num_t (id_dep_client, id_project) VALUES($1,$2)`,
+        `INSERT INTO project_num_t (id_dep_client, id_project) VALUES($1,$2) RETURNING *`,
         [id_dep_client, id_project]
       );
 
-      res.json(newProject);
+      res.json(newProject.rows);
     } catch (error) {
       console.error(error);
     }
