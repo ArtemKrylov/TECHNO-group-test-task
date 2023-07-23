@@ -9,6 +9,7 @@ import { TechnoApp_API } from 'API/TechnoApp_API';
 import { ClientInterface } from 'utils/models/client';
 import { ProjectInterface } from 'utils/models/project';
 import { InputType } from 'components/Input/Input';
+import { AxiosResponse } from 'axios';
 
 const StartPage: React.FC = () => {
   const [id_dep_client, setId_dep_client] = useState<string>();
@@ -49,7 +50,7 @@ const StartPage: React.FC = () => {
   const onCreateProjectButtonClick: (
     event: React.MouseEvent<HTMLButtonElement>,
     clientId: string | undefined
-  ) => void = (event, id_dep_client) => {
+  ) => void = async (event, id_dep_client) => {
     if (!id_dep_client) {
       console.log('Undefined client!');
       return;
@@ -59,9 +60,13 @@ const StartPage: React.FC = () => {
       currentDate.getMonth() + 1
     ).padStart(2, '0')}${String(currentDate.getFullYear())}`;
     const newId_project = `${id_dep_client}-${dateChunk}`;
-    console.log('projectNumber: ', newId_project);
     setId_project(newId_project);
-    TechnoApp_API.createProject(id_dep_client, newId_project);
+    const newProject: AxiosResponse<ProjectInterface> =
+      await TechnoApp_API.createProject(id_dep_client, newId_project);
+    setProjects(prev => {
+      if (!prev) return [newProject.data];
+      return [newProject.data, ...prev];
+    });
   };
 
   return (
