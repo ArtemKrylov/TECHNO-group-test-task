@@ -13,11 +13,11 @@ const appController = {
 
   //get all client`s projects
   getClientProjects: async (req, res) => {
-    const { clientId } = req.params;
+    const { id_dep_client } = req.params;
     try {
       const products = await postgre.query(
         "SELECT * FROM public.project_num_t WHERE id_dep_client = $1",
-        [clientId]
+        [id_dep_client]
       );
       res.json(products.rows);
     } catch (error) {
@@ -25,16 +25,30 @@ const appController = {
     }
   },
 
+  //get clients by project`s id
+  getClientProjects: async (req, res) => {
+    const { clientId: id_dep_client } = req.params;
+    try {
+      const clients = await postgre.query(
+        "SELECT * FROM public.client_t WHERE id_dep_client = $1",
+        [id_dep_client]
+      );
+      res.json(clients.rows);
+    } catch (error) {
+      console.error(error);
+    }
+  },
+
   //create project
   createProject: async (req, res) => {
-    const { clientId } = req.params;
-    const { id, id_project } = req.body;
-    console.log("data: ", data);
+    const { clientId: id_dep_client } = req.params;
+    const { id_project } = req.body;
     try {
       const newProject = await postgre.query(
-        `INSERT INTO project_num_t (id, id_dep_client, id_project) VALUES($1,$2,$3)`,
-        [id, clientId, id_project]
+        `INSERT INTO project_num_t (id_dep_client, id_project) VALUES($1,$2)`,
+        [id_dep_client, id_project]
       );
+
       res.json(newProject);
     } catch (error) {
       console.error(error);

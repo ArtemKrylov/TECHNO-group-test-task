@@ -12,7 +12,7 @@ VALUES
     ('3-POK', 'Бобров К.П.')
 
 CREATE TABLE PROJECT_NUM_T (
-    ID integer,
+    id serial primary key,
     ID_DEP_CLIENT varchar(100),
     ID_PROJECT varchar(100)
 );
