@@ -49,7 +49,7 @@ const appController = {
         [id_dep_client, id_project]
       );
 
-      res.json(newProject.rows);
+      res.json(newProject.rows[0]);
     } catch (error) {
       console.error(error);
     }
