@@ -38,7 +38,6 @@ const StartPage: React.FC = () => {
     value,
     type
   ) => {
-    console.log(value, type);
     if (type === INPUT_TYPE.CLIENT) {
       setId_dep_client(value);
     }

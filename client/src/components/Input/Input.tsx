@@ -21,34 +21,6 @@ const Input: React.FC<InputInterface> = ({
   onChange,
   options,
 }) => {
-  // const [options, setOptions] = useState<
-  //   ClientInterface[] | ProjectInterface[] | null
-  // >(null);
-
-  // useEffect(() => {
-  //   const fetchOptions: (type: InputType) => Promise<void> = async () => {
-  //     let response;
-  //     try {
-  //       switch (type) {
-  //         case INPUT_TYPE.CLIENT:
-  //           response = await TechnoApp_API.getClients();
-  //           setOptions(response.data);
-  //           break;
-  //         case INPUT_TYPE.PROJECT:
-  //           if (!id_dep_client) return;
-
-  //           response = await TechnoApp_API.getProjects(id_dep_client);
-  //           setOptions(response.data);
-  //           break;
-  //       }
-  //     } catch (error) {
-  //       console.dir(error);
-  //     }
-  //   };
-  //   fetchOptions(type);
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [type, id_dep_client]);
-
   const onClientInputChange: (
     event: React.ChangeEvent<HTMLSelectElement>
   ) => void = event => {
@@ -63,7 +35,9 @@ const Input: React.FC<InputInterface> = ({
       </div>
       {options && options.length > 0 ? (
         <select className="input__select" onChange={onClientInputChange}>
-          <option className="input__option">Select some option</option>
+          {type === INPUT_TYPE.CLIENT && (
+            <option className="input__option">Select some option</option>
+          )}
           {options.map((option: any) => {
             const clientId = option.id_dep_client;
             const projectId = option.id_project;
