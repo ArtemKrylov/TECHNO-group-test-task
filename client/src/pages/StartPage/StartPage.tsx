@@ -30,7 +30,7 @@ const StartPage: React.FC = () => {
     const fetchProjects: () => Promise<void> = async () => {
       if (!id_dep_client) return;
       const response = await TechnoApp_API.getProjects(id_dep_client);
-      setProjects(response.data);
+      setProjects(response.data.reverse());
     };
     fetchProjects();
   }, [id_dep_client]);

@@ -39,7 +39,7 @@ const Input: React.FC<InputInterface> = ({
           {type === INPUT_TYPE.CLIENT && (
             <option className="input__option">Select some option</option>
           )}
-          {options.reverse().map((option: any, index: number) => {
+          {options.map((option: any, index: number) => {
             const clientId = option.id_dep_client;
             const projectId = option.id_project;
 
