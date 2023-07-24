@@ -65,11 +65,15 @@ const StartPage: React.FC = () => {
     try {
       const newProject: AxiosResponse<ProjectInterface> =
         await TechnoApp_API.createProject(id_dep_client, newId_project);
+      const projectsNumber = projects?.length ?? 0;
       setProjects(prev => {
         if (!prev) return [newProject.data];
         return [newProject.data, ...prev];
       });
-      toast.success(`New project ${newId_project} created!`);
+
+      toast.success(
+        `New project ${projectsNumber + 1}-${newId_project} created!`
+      );
     } catch (error: any) {
       console.error(error);
       toast.error(error.message);
