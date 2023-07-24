@@ -51,7 +51,7 @@ const Input: React.FC<InputInterface> = ({
               >
                 {type === INPUT_TYPE.CLIENT
                   ? clientId
-                  : `${index}-${projectId}`}
+                  : `${index + 1}-${projectId}`}
               </option>
             );
           })}
