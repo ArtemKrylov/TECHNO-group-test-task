@@ -39,22 +39,28 @@ const Input: React.FC<InputInterface> = ({
           {type === INPUT_TYPE.CLIENT && (
             <option className="input__option">Select some option</option>
           )}
-          {options.map((option: any, index: number) => {
-            const clientId = option.id_dep_client;
-            const projectId = option.id_project;
+          {options.map(
+            (
+              option: any,
+              index: number,
+              array: ClientInterface[] | ProjectInterface[]
+            ) => {
+              const clientId = option.id_dep_client;
+              const projectId = option.id_project;
 
-            return (
-              <option
-                key={options.indexOf(option)}
-                value={clientId}
-                className="input__option"
-              >
-                {type === INPUT_TYPE.CLIENT
-                  ? clientId
-                  : `${index + 1}-${projectId}`}
-              </option>
-            );
-          })}
+              return (
+                <option
+                  key={options.indexOf(option)}
+                  value={clientId}
+                  className="input__option"
+                >
+                  {type === INPUT_TYPE.CLIENT
+                    ? clientId
+                    : `${array.length - (index + 1)}-${projectId}`}
+                </option>
+              );
+            }
+          )}
         </select>
       </InputStyled>
     );
